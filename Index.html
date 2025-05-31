@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BrainBox - Boost Your Learning with the Power of BrainBox!</title>
+  <style>
+    /* Base Reset and Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #001f3f, #004466);
+      color: #f0f8ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    header {
+      padding: 2rem 1rem 1rem;
+      text-align: center;
+      background: linear-gradient(90deg, #6c0aec, #0d7ae8);
+      box-shadow: 0 0 20px rgba(242, 25, 5, 0.7);
+      border-radius: 0 0 20px 20px;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin: 0 0 0.3rem;
+      background: linear-gradient(90deg, #e5e9eb, #ad0be7);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 8px #f1f1f2aa;
+    }
+
+    header h1 span {
+      background: linear-gradient(90deg, #ffd6ff, #9f9dff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 12px #bcaaffcc;
+    }
+
+    header p {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      color: #c8d9ff;
+      text-shadow: 0 0 8px #8ea7ff99;
+    }
+
+    #news-headline {
+      background: #3a0ca3;
+      color: #ffe6ff;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.8rem 1rem;
+      font-size: 1.2rem;
+      box-shadow: 0 0 15px #720026cc;
+      margin: 1rem auto;
+      max-width: 900px;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    #news-headline marquee {
+      color: #ffd6ff;
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 4rem;
+      max-width: 1200px;
+      margin: auto;
+      width: 100%;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.6rem;
+      width: 100%;
+      padding: 1rem 0 2rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #00ffc3, #008080);
+      border-radius: 20px;
+      padding: 1.8rem 1.5rem;
+      box-shadow:
+        0 4px 15px rgba(0,255,195,0.4),
+        inset 0 0 5px #00ffdca1;
+      color: #002c2c;
+      font-weight: 700;
+      font-size: 1.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition:
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+      position: relative;
+      text-shadow: 0 0 3px #00ffe87a;
+    }
+
+    .card:hover,
+    .card:focus {
+      transform: translateY(-8px) scale(1.07);
+      box-shadow:
+        0 10px 25px rgba(0,255,195,0.7),
+        inset 0 0 12px #00ffdea7;
+      background: linear-gradient(145deg, #00fff9, #00bfb0);
+      outline: none;
+      z-index: 2;
+    }
+
+    .card svg {
+      width: 28px;
+      height: 28px;
+      margin-right: 0.8rem;
+      fill: #004333;
+      filter: drop-shadow(1px 1px 0 #007766);
+      flex-shrink: 0;
+    }
+
+    .notes-section {
+      display: none;
+      background: #003a3a99;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 700px;
+      margin-top: 1rem;
+      color: #aaffff;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 4px 25px rgba(0,255,195,0.6);
+      animation: fadeIn 0.5s ease forwards;
+      user-select: text;
+    }
+
+    .notes-section h3 {
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      font-weight: 800;
+      color: #00ffff;
+      text-shadow: 0 0 6px #00ffffcc;
+      font-size: 1.9rem;
+    }
+
+    .notes-section ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .notes-section ul li {
+      margin: 0.5rem 0;
+    }
+
+    .notes-section ul li a {
+      color: #b0ffff;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .notes-section ul li a:hover,
+    .notes-section ul li a:focus {
+      border-color: #00ffff;
+      outline-offset: 3px;
+      outline: 1.5px solid #00ffffaa;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animation for footer text glow */
+    @keyframes glow {
+      0%, 100% {
+        color: #d3d3ff;
+        text-shadow:
+          0 0 5px #938cffaa,
+          0 0 10px #776eff99,
+          0 0 20px #776effcc;
+      }
+      50% {
+        color: #776eff;
+        text-shadow:
+          0 0 10px #938cffcc,
+          0 0 20px #b5aaffff,
+          0 0 30px #b5aaffff;
+      }
+    }
+
+    footer {
+      padding: 1rem;
+      text-align: center;
+      background: linear-gradient(90deg, #6a11cbcc, #2575fccd);
+      font-weight: 600;
+      font-size: 1rem;
+      color: #181887;
+      box-shadow: inset 0 1px 6px #050860aa;
+      user-select: none;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #052546;
+      font-weight: 700;
+    }
+
+    footer a:hover,
+    footer a:focus {
+      text-decoration: underline;
+      color: #362880;
+      outline: none;
+    }
+
+    /* Icon styles */
+    .icon {
+      width: 28px;
+      height: 28px;
+      margin-right: 0.8rem;
+      fill: #113e33;
+      filter: drop-shadow(1px 1px 0 #007766);
+      flex-shrink: 0;
+    }
+
+    /* Responsive Improvements */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      header p {
+        font-size: 1.1rem;
+      }
+      #news-headline {
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+        max-width: 95vw;
+      }
+      .card {
+        font-size: 1.1rem;
+        padding: 1.3rem 1rem;
+      }
+      .notes-section {
+        padding: 1rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to <span>BrainBox</span></h1>
+    <p>Boost Your Learning with the Power of BrainBox!</p>
+  </header>
+
+  <!-- Important News Headline Section -->
+  <div id="news-headline" role="region" aria-label="Important news headline">
+    <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+      📰 Important: BrainBox releases new Competitive Prep notes for JEE 2024! Check them out now and boost your preparation!
+    </marquee>
+  </div>
+
+  <main>
+    <div class="card-container" role="list" aria-label="Learning categories">
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('school')" onkeypress="if(event.key==='Enter') toggleNotes('school')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2L1 7v13h6v-6h8v6h6V7L12 2z"/></svg>
+        📚 School Zone
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('competitive')" onkeypress="if(event.key==='Enter') toggleNotes('competitive')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l9 4v6c0 5-8 9-8 9s-8-4-8-9v-6l9-4z"/></svg>
+        🧪 Competitive Prep
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('skill')" onkeypress="if(event.key==='Enter') toggleNotes('skill')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/></svg>
+        💻 Skill Booster
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('gk')" onkeypress="if(event.key==='Enter') toggleNotes('gk')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+        🌍 GK & Current Affairs
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('study')" onkeypress="if(event.key==='Enter') toggleNotes('study')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h16v16H4z"/></svg>
+        📖 Study
+      </div>
+
+      <!-- New Cards Added Here -->
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('language')" onkeypress="if(event.key==='Enter') toggleNotes('language')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v16M4 12h16"/></svg>
+        🗣️ Language Learning
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('science')" onkeypress="if(event.key==='Enter') toggleNotes('science')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/></svg>
+        🔬 Science Hub
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('art')" onkeypress="if(event.key==='Enter') toggleNotes('art')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2L20 20H4z"/></svg>
+        🎨 Art & Creativity
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('career')" onkeypress="if(event.key==='Enter') toggleNotes('career')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 21v-6h12v6"/></svg>
+        💼 Career Guidance
+      </div>
+      <div class="card" role="listitem" tabindex="0" onclick="toggleNotes('health')" onkeypress="if(event.key==='Enter') toggleNotes('health')">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4a4 4 0 0 0 0 8 4 4 0 0 0 0-8z"/></svg>
+        🧘‍♂️ Health & Wellness
+      </div>
+    </div>
+
+    <!-- Existing notes sections -->
+    <section id="school" class="notes-section" aria-live="polite" aria-label="School Zone notes">
+      <h3>📘 School Zone Notes</h3>
+      <ul>
+        <li><a href="pdfs/class9.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Class 9 CBSE Notes</a></li>
+        <li><a href="pdfs/class10.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Class 10 CBSE Notes</a></li>
+        <li><a href="pdfs/sample_papers.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Sample Papers PDF</a></li>
+        <li><a href="pdfs/syllabus.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">CBSE Syllabus PDF</a></li>
+      </ul>
+    </section>
+
+    <section id="competitive" class="notes-section" aria-live="polite" aria-label="Competitive Preparation notes">
+      <h3>🧪 Competitive Prep Notes</h3>
+      <ul>
+        <li><a href="pdfs/jee_physics.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">JEE Physics Notes</a></li>
+        <li><a href="pdfs/neet_bio.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">NEET Biology Notes</a></li>
+        <li><a href="pdfs/ssc_gk.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">SSC GK Notes</a></li>
+        <li><a href="pdfs/mock_tests.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Mock Test PDFs</a></li>
+      </ul>
+    </section>
+
+    <section id="skill" class="notes-section" aria-live="polite" aria-label="Skill Booster notes">
+      <h3>💻 Skill Booster Notes</h3>
+      <ul>
+        <li><a href="pdfs/python_notes.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Python Notes PDF</a></li>
+        <li><a href="pdfs/java_notes.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Java Notes PDF</a></li>
+        <li><a href="pdfs/cpp_notes.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">C++ Notes PDF</a></li>
+        <li><a href="pdfs/dsa_sheet.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">DSA Sheet PDF</a></li>
+      </ul>
+    </section>
+
+    <section id="gk" class="notes-section" aria-live="polite" aria-label="General Knowledge and Current Affairs notes">
+      <h3>🌍 GK & Current Affairs</h3>
+      <ul>
+        <li><a href="pdfs/daily_current.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Daily Current Affairs</a></li>
+        <li><a href="pdfs/weekly_quiz.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Weekly Quiz PDF</a></li>
+        <li><a href="pdfs/static_gk.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Static GK Notes</a></li>
+        <li><a href="pdfs/yearly_summary.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Yearly Summary</a></li>
+      </ul>
+    </section>
+
+    <section id="study" class="notes-section" aria-live="polite" aria-label="Study notes">
+      <h3>📖 Study Notes</h3>
+      <ul>
+        <li><a href="pdfs/study_guide.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Study Guide PDF</a></li>
+        <li><a href="pdfs/time_management.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Time Management Tips</a></li>
+        <li><a href="pdfs/effective_learning.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Effective Learning Techniques</a></li>
+        <li><a href="pdfs/mind_maps.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Mind Maps & Note Taking</a></li>
+      </ul>
+    </section>
+
+    <section id="language" class="notes-section" aria-live="polite" aria-label="Language Learning notes">
+      <h3>🗣️ Language Learning</h3>
+      <ul>
+        <li><a href="pdfs/spanish_basics.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Spanish Basics</a></li>
+        <li><a href="pdfs/english_grammar.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">English Grammar</a></li>
+        <li><a href="pdfs/french_vocab.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">French Vocabulary</a></li>
+        <li><a href="pdfs/gre_words.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">GRE Vocabulary Words</a></li>
+      </ul>
+    </section>
+
+    <section id="science" class="notes-section" aria-live="polite" aria-label="Science Hub notes">
+      <h3>🔬 Science Hub</h3>
+      <ul>
+        <li><a href="pdfs/physics_basics.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Physics Basics</a></li>
+        <li><a href="pdfs/chemistry_notes.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Chemistry Notes</a></li>
+        <li><a href="pdfs/biology_summary.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Biology Summary</a></li>
+        <li><a href="pdfs/environment.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Environmental Science</a></li>
+      </ul>
+    </section>
+
+    <section id="art" class="notes-section" aria-live="polite" aria-label="Art and Creativity notes">
+      <h3>🎨 Art & Creativity</h3>
+      <ul>
+        <li><a href="pdfs/drawing_tutorial.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Drawing Tutorial</a></li>
+        <li><a href="pdfs/color_theory.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Color Theory</a></li>
+        <li><a href="pdfs/creative_writing.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Creative Writing Tips</a></li>
+        <li><a href="pdfs/photography_basics.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Photography Basics</a></li>
+      </ul>
+    </section>
+
+    <section id="career" class="notes-section" aria-live="polite" aria-label="Career Guidance notes">
+      <h3>💼 Career Guidance</h3>
+      <ul>
+        <li><a href="pdfs/resume_tips.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Resume Writing Tips</a></li>
+        <li><a href="pdfs/interview_prep.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Interview Preparation</a></li>
+        <li><a href="pdfs/job_search.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Job Search Strategies</a></li>
+        <li><a href="pdfs/networking.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Professional Networking</a></li>
+      </ul>
+    </section>
+
+    <section id="health" class="notes-section" aria-live="polite" aria-label="Health and Wellness notes">
+      <h3>🧘‍♂️ Health & Wellness</h3>
+      <ul>
+        <li><a href="pdfs/mental_health.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Mental Health Tips</a></li>
+        <li><a href="pdfs/physical_fitness.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Physical Fitness Guide</a></li>
+        <li><a href="pdfs/nutrition.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Basic Nutrition</a></li>
+        <li><a href="pdfs/stress_management.pdf" target="_blank" rel="noopener noreferrer" title="Download PDF - may be unavailable">Stress Management</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>❤️ Developed by <strong>2025</strong> — BrainBox Learning Web</p>
+    <p>📧 Contact: <a href="mailto:chahatkumar0101@gmail.com" target="_blank" rel="noopener noreferrer">chahatkumar0101@gmail.com</a></p>
+  </footer>
+
+  <script>
+    function toggleNotes(id) {
+      const sections = document.querySelectorAll('.notes-section');
+      sections.forEach(sec => {
+        if (sec.id === id) {
+          if(sec.style.display === 'block') {
+            sec.style.display = 'none';
+          } else {
+            sec.style.display = 'block';
+            sec.focus();
+          }
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
